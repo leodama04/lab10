@@ -18,10 +18,10 @@ import static java.util.Collections.emptyMap;
 
 /**
  * This class will contain four utility functions on lists and maps, of which the first one is provided as example.
- * 
+ * <br>
  * All such methods take as second argument a functional interface from the Java library (java.util.function).
  * This enables calling them by using the concise lambda syntax, as it's done in the main function.
- *
+ * <br>
  * Realize the three methods **WITHOUT** using the Stream library, but only leveraging the lambdas.
  *
  */
@@ -113,7 +113,7 @@ public final class LambdaUtilities {
      */
     @SuppressWarnings("PMD.SystemPrintln")
     public static void main(final String[] args) {
-        final List<Integer> li = IntStream.range(1, 8).mapToObj(Integer::valueOf).collect(Collectors.toList());
+        final List<Integer> li = IntStream.range(1, 8).boxed().collect(Collectors.toList());
         System.out.println(dup(li, x -> x + 100));
         /*
          * [1, 101, 2, 102, 3, 103, 4, 104, 5, 105, 6, 106, 7, 107]
