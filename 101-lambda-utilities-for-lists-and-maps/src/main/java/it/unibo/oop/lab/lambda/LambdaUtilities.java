@@ -95,7 +95,7 @@ public final class LambdaUtilities {
      *            element type
      * @param <K>
      *            key type
-     * @return a map whose non present values are filled with the value provided
+     * @return a map whose non-present values are filled with the value provided
      *         by the supplier
      */
     public static <K, V> Map<K, V> fill(final Map<K, Optional<V>> map, final Supplier<V> def) {
