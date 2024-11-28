@@ -64,7 +64,7 @@ public final class LambdaUtilities {
          */
         final List<Optional<T>> l = new ArrayList<>();
         list.forEach(t -> {
-            l.add(Optional.of(t).filter(pre));
+            l.add(Optional.ofNullable(t).filter(pre));
         });
         return l;
     }
@@ -87,7 +87,7 @@ public final class LambdaUtilities {
          */
         final Map<R, Set<T>> m = new HashMap<>();
         list.forEach(t -> {
-            m.merge(op.apply(t), new HashSet<T>(Set.of(t)), (s1, s2) -> {
+            m.merge(op.apply(t), new HashSet<>(Set.of(t)), (s1, s2) -> {
                 s1.addAll(s2);
                 return s1;
             });
