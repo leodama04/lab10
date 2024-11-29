@@ -13,14 +13,15 @@ public final class DrawNumberImpl implements DrawNumber {
     private final int attempts;
     private int remainingAttempts;
     private final Random random = new Random();
+    private Configuration configuration = new Configuration.Builder().build();
 
     /**
      * @throws IllegalStateException if the configuration is not consistent
      */
     public DrawNumberImpl(final int min, final int max, final int attempts) {
-        this.min = min;
-        this.max = max;
-        this.attempts = attempts;
+        this.min = configuration.getMin();
+        this.max = configuration.getMax();
+        this.attempts = configuration.getAttempts();
         this.reset();
     }
 

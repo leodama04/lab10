@@ -1,12 +1,8 @@
 package it.unibo.mvc;
-
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
 
 /**
  * Encapsulates the concept of configuration.
@@ -69,13 +65,7 @@ public final class Configuration {
      * 
      */
     public static class Builder {
-
-        private static final int DEFAULT_MIN = 0;
-        private static final int DEFAULT_MAX = 100;
-        private static final int DEFAULT_ATTEMPTS = 10;
-
-        private static final String PATH = "src/main/resources/config.yml";
-
+        private static final String PATH = "C:\\Users\\damar\\OneDrive\\Documenti\\esercizi_oop\\lab10\\102-advanced-mvc\\src\\main\\resources\\config.yml";
         private int min;
         private int max;
         private int attempts;
@@ -120,16 +110,19 @@ public final class Configuration {
             ) {
                 String line = null;
                 line = reader.readLine();
-                String[] tokens = line.split(":");
+                String[] tokens = line.split(": ");
                 this.min = Integer.parseInt(tokens[1]);
+                System.out.println(this.min);
                 line = reader.readLine();
-                tokens = line.split(":");
+                tokens = line.split(": ");
                 this.max = Integer.parseInt(tokens[1]);
+                System.out.println(this.max);
                 line = reader.readLine();
-                tokens = line.split(":");
+                tokens = line.split(": ");
                 this.attempts = Integer.parseInt(tokens[1]);
+                System.out.println(this.attempts);
             } catch (IOException e) {
-                System.err.println("Error in reading the configuration file..." + e.getMessage());
+                System.err.println("Error in reading the configuration file " + e.getMessage());
             }
             consumed = true;
             return new Configuration(max, min, attempts);
