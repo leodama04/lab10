@@ -1,5 +1,12 @@
 package it.unibo.mvc;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Path;
 
 /**
  * Encapsulates the concept of configuration.
@@ -63,13 +70,15 @@ public final class Configuration {
      */
     public static class Builder {
 
-        private static final int MIN = 0;
-        private static final int MAX = 100;
-        private static final int ATTEMPTS = 10;
+        private static final int DEFAULT_MIN = 0;
+        private static final int DEFAULT_MAX = 100;
+        private static final int DEFAULT_ATTEMPTS = 10;
 
-        private int min = MIN;
-        private int max = MAX;
-        private int attempts = ATTEMPTS;
+        private static final String PATH = "src/main/resources/config.yml";
+
+        private int min;
+        private int max;
+        private int attempts;
         private boolean consumed = false;
 
         /**
@@ -105,6 +114,22 @@ public final class Configuration {
         public final Configuration build() {
             if (consumed) {
                 throw new IllegalStateException("The builder can only be used once");
+            }
+            try (
+                final BufferedReader reader = new BufferedReader(new FileReader(new File(PATH)));
+            ) {
+                String line = null;
+                line = reader.readLine();
+                String[] tokens = line.split(":");
+                this.min = Integer.parseInt(tokens[1]);
+                line = reader.readLine();
+                tokens = line.split(":");
+                this.max = Integer.parseInt(tokens[1]);
+                line = reader.readLine();
+                tokens = line.split(":");
+                this.attempts = Integer.parseInt(tokens[1]);
+            } catch (IOException e) {
+                System.err.println("Error in reading the configuration file..." + e.getMessage());
             }
             consumed = true;
             return new Configuration(max, min, attempts);
